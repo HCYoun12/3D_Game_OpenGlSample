@@ -5,6 +5,7 @@
 
 class RenderableObject;
 class IUpdater;
+class ICleanUp;
 class GLFWwindow;
 
 class IRenderer
@@ -30,6 +31,8 @@ public:
 public:
 	void init();
 	void setCameraPosition(glm::vec3 in_position);
+	void Movement();
+
 	void render();
 	void addObject(RenderableObject* render_obj);
 
@@ -37,13 +40,17 @@ public:
 
 	virtual void shutDown() override;
 
+	GLFWwindow* window;
+
 private:
 	glm::vec3 set_position;
-	GLFWwindow* window;
 	
+	float moveX = 0.0f;
+	float moveY = 0.0f;
 	//std::vector<IRenderer*>* _renderingObjArr;
 
 	RenderableObject* src_obj;
+
 };
 
 

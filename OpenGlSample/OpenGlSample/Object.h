@@ -12,11 +12,6 @@
 
 class Object : public ICleanUp, public IUpdater
 {
-public:
-	glm::vec3 obj_position;
-
-public:
-	void setPosition(glm::vec3 in_position);
 
 public:
 	virtual ~Object() {}
@@ -53,7 +48,9 @@ class NonRenderableObject : public Object
 {
 public:
 	virtual void shutDown() override {}
-	virtual void update() override {}
+	virtual void update() override;
+
+
 };
 
 

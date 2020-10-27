@@ -3,10 +3,7 @@
 #include "include/GL/glew.h"
 #include "include/GLFW/glfw3.h"
 
-void Object::setPosition(glm::vec3 in_position)
-{
-	obj_position = in_position;
-}
+class GLFWwindow;
 
 void RenderableObject::shutDown()
 {
@@ -27,4 +24,9 @@ void RenderableObject::update()
 void RenderableObject::render()
 {
 
+}
+
+void NonRenderableObject::update()
+{
+	
 }

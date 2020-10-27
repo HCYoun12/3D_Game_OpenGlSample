@@ -81,6 +81,31 @@ void Renderer::addObject(RenderableObject* render_obj)
 	src_obj = render_obj;
 }
 
+void Renderer::Movement()
+{
+	if (glfwGetKey(window, GLFW_KEY_RIGHT))
+	{
+		moveX = moveX + 0.001f;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT))
+	{
+		moveX = moveX - 0.001f;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_UP))
+	{
+		moveY = moveY + 0.001f;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_DOWN))
+	{
+		moveY = moveY - 0.001f;
+	}
+}
+
+
+
 void Renderer::render()
 {
 	/*for (std::vector<IRenderer*>::iterator iter = _renderingObjArr->begin(); iter != _renderingObjArr->end(); iter++)
@@ -104,8 +129,13 @@ void Renderer::render()
 		);
 
 		glm::mat4 ModelMatrix = glm::mat4(1.0);
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(src_obj->obj_position));
-		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+
+		
+
+		glm::mat4 ObjectMove = glm::mat4(1.0);
+		ObjectMove = glm::translate(ObjectMove, glm::vec3(moveX, moveY, 0.0f));
+
+		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ObjectMove * ModelMatrix;
 
 
 
@@ -171,6 +201,7 @@ void Renderer::render()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	
+		glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0;
 }
 
 void Renderer::shutDown()

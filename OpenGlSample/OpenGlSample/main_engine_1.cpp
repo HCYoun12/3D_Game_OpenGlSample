@@ -19,7 +19,6 @@ int main()
 	renderer->setCameraPosition(glm::vec3(4.0f, 4.0f, 3.0f));
 
 	RenderableObject* cube = new RenderableObject();
-	cube->setPosition(glm::vec3(3.0f, 0.0f, 0.0f));
 	renderer->addObject(cube);
 
 
@@ -36,9 +35,12 @@ int main()
 		"fs.shader"
 	);
 
+	
+
 	while (true)
 	{
 		renderer->update(non);
+		renderer->Movement();
 		renderer->render();
 	}
 
