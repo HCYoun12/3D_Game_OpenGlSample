@@ -7,8 +7,10 @@
 #include "include/GL/glew.h"
 
 #include "ICleanUp.h"
+#include "IUpdater.h"
+#include "Renderer.h"
 
-class Object : public ICleanUp
+class Object : public ICleanUp, public IUpdater
 {
 public:
 	glm::vec3 obj_position;
@@ -20,7 +22,7 @@ public:
 	virtual ~Object() {}
 };
 
-class RenderableObject : public Object
+class RenderableObject : public Object, public IRenderer
 {
 public:
 	GLuint VertexArrayID;
@@ -41,6 +43,8 @@ public:
 	GLuint LightID;
 
 public:
+	virtual void update() override;
+	virtual void render() override;
 	virtual void shutDown() override;
 
 };
@@ -49,6 +53,7 @@ class NonRenderableObject : public Object
 {
 public:
 	virtual void shutDown() override {}
+	virtual void update() override {}
 };
 
 

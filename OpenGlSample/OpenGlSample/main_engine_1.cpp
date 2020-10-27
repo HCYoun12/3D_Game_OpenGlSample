@@ -8,6 +8,7 @@
 #include "FileManager.h"
 #include "Renderer.h"
 
+#include "Sphere.h"
 
 int main()
 {
@@ -19,6 +20,8 @@ int main()
 
 	RenderableObject* cube = new RenderableObject();
 	cube->setPosition(glm::vec3(3.0f, 0.0f, 0.0f));
+	renderer->addObject(cube);
+
 
 	Sphere* sphere = new Sphere();
 
@@ -35,10 +38,12 @@ int main()
 
 	while (true)
 	{
-		renderer->render(cube);
+		renderer->update(non);
+		renderer->render();
 	}
 
 	cube->shutDown();
+	sphere->shutDown();
 	renderer->shutDown();
 	
 
