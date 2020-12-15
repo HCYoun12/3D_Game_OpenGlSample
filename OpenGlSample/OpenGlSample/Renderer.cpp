@@ -65,24 +65,16 @@ void Renderer::init()
 
 }
 
-void Renderer::setCameraPosition(glm::vec3 in_position)
-{
-	set_position = in_position;
-}
+
 
 void Renderer::update(IUpdater* src_obj)
 {
 	src_obj->update();
 }
 
-void Renderer::addObject(RenderableObject* render_obj)
-{
-	//_renderingObjArr->push_back(render_obj);
-	src_obj = render_obj;
-}
-
 void Renderer::Movement()
 {
+	
 	if (glfwGetKey(window, GLFW_KEY_RIGHT))
 	{
 		moveX = moveX + 0.001f;
@@ -108,100 +100,20 @@ void Renderer::Movement()
 
 void Renderer::render()
 {
-	/*for (std::vector<IRenderer*>::iterator iter = _renderingObjArr->begin(); iter != _renderingObjArr->end(); iter++)
+	for (std::vector<IRenderer*>::iterator iter = _renderingObjArr.begin(); 
+		iter != _renderingObjArr.end(); 
+		++iter)
 	{
-		*iter;
+		(*iter)->render();
 
-	}*/
-		// Clear the screen
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// Use our shader
-		glUseProgram(src_obj->programID);
-
-		// Compute the MVP matrix from keyboard and mouse input
-		glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-		// Camera matrix
-		glm::mat4 ViewMatrix = glm::lookAt(
-			glm::vec3(set_position), // Camera À§Ä¡ ÁÂÇ¥
-			glm::vec3(0, 0, 0), // and looks at the origin
-			glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-		);
-
-		glm::mat4 ModelMatrix = glm::mat4(1.0);
-
+	}
 		
-
-		glm::mat4 ObjectMove = glm::mat4(1.0);
-		ObjectMove = glm::translate(ObjectMove, glm::vec3(moveX, moveY, 0.0f));
-
-		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ObjectMove * ModelMatrix;
-
-
-
-		// Send our transformation to the currently bound shader, 
-		// in the "MVP" uniform
-		glUniformMatrix4fv(src_obj->MatrixID, 1, GL_FALSE, &MVP[0][0]);
-		glUniformMatrix4fv(src_obj->ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-		glUniformMatrix4fv(src_obj->ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
-
-		glm::vec3 lightPos = glm::vec3(0, 0, 10);
-		glUniform3f(src_obj->LightID, lightPos.x, lightPos.y, lightPos.z);
-
-		// Bind our texture in Texture Unit 0
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, src_obj->Texture);
-		// Set our "myTextureSampler" sampler to use Texture Unit 0
-		glUniform1i(src_obj->TextureID, 0);
-
-		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, src_obj->vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
-
-		// 2nd attribute buffer : UVs
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, src_obj->uvbuffer);
-		glVertexAttribPointer(
-			1,                                // attribute
-			2,                                // size
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);
-
-		// 3rd attribute buffer : normals
-		glEnableVertexAttribArray(2);
-		glBindBuffer(GL_ARRAY_BUFFER, src_obj->normalbuffer);
-		glVertexAttribPointer(
-			2,                                // attribute
-			3,                                // size
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);
-
-		// Draw the triangles !
-		glDrawArrays(GL_TRIANGLES, 0, src_obj->vertices.size());
-
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(2);
 
 		// Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	
-		glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0;
+		
 }
 
 void Renderer::shutDown()

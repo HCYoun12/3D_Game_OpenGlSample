@@ -38,9 +38,15 @@ public:
 	GLuint LightID;
 
 public:
+	void setCameraPosition(glm::vec3 in_position);
+
 	virtual void update() override;
 	virtual void render() override;
 	virtual void shutDown() override;
+
+
+private:
+	glm::vec3 set_position;
 
 };
 

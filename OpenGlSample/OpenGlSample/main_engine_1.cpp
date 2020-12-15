@@ -16,17 +16,9 @@ int main()
 
 	Renderer* renderer = Renderer::instance();
 	renderer->init();
-	renderer->setCameraPosition(glm::vec3(4.0f, 4.0f, 3.0f));
+	
 
 	RenderableObject* cube = new RenderableObject();
-	renderer->addObject(cube);
-
-
-	Sphere* sphere = new Sphere();
-
-	NonRenderableObject* non = new NonRenderableObject();
-
-
 	file_mgr->loadObj(
 		cube,
 		"cube.obj",
@@ -34,6 +26,14 @@ int main()
 		"vs.shader",
 		"fs.shader"
 	);
+
+	cube->setCameraPosition(glm::vec3(4.0f, 2.0f, 3.0f));
+	renderer->addObject(cube);
+
+
+	Sphere* sphere = new Sphere();
+
+	NonRenderableObject* non = new NonRenderableObject();
 
 	
 
