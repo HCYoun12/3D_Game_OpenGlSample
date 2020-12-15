@@ -74,7 +74,8 @@ void Renderer::update(IUpdater* src_obj)
 
 void Renderer::Movement()
 {
-	
+	render_obj->getMovement(moveX, moveY);
+
 	if (glfwGetKey(window, GLFW_KEY_RIGHT))
 	{
 		moveX = moveX + 0.001f;
@@ -94,6 +95,8 @@ void Renderer::Movement()
 	{
 		moveY = moveY - 0.001f;
 	}
+
+	
 }
 
 
@@ -105,9 +108,10 @@ void Renderer::render()
 		++iter)
 	{
 		(*iter)->render();
+		
 
 	}
-		
+	
 
 		// Swap buffers
 		glfwSwapBuffers(window);

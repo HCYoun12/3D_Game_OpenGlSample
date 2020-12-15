@@ -39,9 +39,11 @@ int main()
 
 	while (true)
 	{
-		renderer->update(non);
-		renderer->Movement();
+		//renderer->update(non);
+		
 		renderer->render();
+
+		renderer->Movement();
 	}
 
 	cube->shutDown();

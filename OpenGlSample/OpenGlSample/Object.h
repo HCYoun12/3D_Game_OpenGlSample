@@ -39,6 +39,7 @@ public:
 
 public:
 	void setCameraPosition(glm::vec3 in_position);
+	void getMovement(float x, float y);
 
 	virtual void update() override;
 	virtual void render() override;
@@ -47,7 +48,8 @@ public:
 
 private:
 	glm::vec3 set_position;
-
+	float ObjmoveX = 0.0f;
+	float ObjmoveY = 0.0f;
 };
 
 class NonRenderableObject : public Object

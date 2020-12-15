@@ -52,7 +52,7 @@ private:
 
 	std::vector<IRenderer*> _renderingObjArr;
 
-	
+	RenderableObject* render_obj;
 
 };
 

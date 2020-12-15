@@ -29,6 +29,13 @@ void RenderableObject::setCameraPosition(glm::vec3 in_position)
 	set_position = in_position;
 }
 
+void RenderableObject::getMovement(float x, float y)
+{
+	ObjmoveX = x;
+	ObjmoveY = y;
+}
+
+
 void RenderableObject::render()
 {
 	// Clear the screen
@@ -49,9 +56,9 @@ void RenderableObject::render()
 	glm::mat4 ModelMatrix = glm::mat4(1.0);
 
 	glm::mat4 ObjectMove = glm::mat4(1.0);
-	ObjectMove = glm::translate(ObjectMove, glm::vec3(0.0f, 0.0f, 0.0f));
+	ObjectMove = glm::translate(ObjectMove, glm::vec3(ObjmoveX, ObjmoveY, 0.0f));
 
-	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ObjectMove * ModelMatrix;
 
 
 	// Send our transformation to the currently bound shader, 
