@@ -27,7 +27,7 @@ int main()
 		"fs.shader"
 	);
 
-	cube->setCameraPosition(glm::vec3(4.0f, 2.0f, 3.0f));
+	cube->setCameraPosition(glm::vec3(4.0f, 4.0f, 3.0f));
 	renderer->addObject(cube);
 
 
@@ -39,7 +39,7 @@ int main()
 
 	while (true)
 	{
-		//renderer->update(non);
+		renderer->update(non);
 		
 		renderer->render();
 
